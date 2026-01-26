@@ -1,0 +1,8 @@
+{
+  "extends": ["@tsconfig/bases/recommended", "@tsconfig/bases/node-lts", "@tsconfig/bases/node-ts"],
+  "compilerOptions": {
+    "noEmit": true,
+    "customConditions": ["development:@jcbhmr/exec"]
+  },
+  "exclude": ["./dist/"]
+}

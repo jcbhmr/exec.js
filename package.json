@@ -1,41 +1,119 @@
 {
-    "name": "@jcbhmr/cross-process-execve",
-    "type": "module",
-    "imports": {
-        "#index": {
-            "development:@jcbhmr/cross-process-execve": {
-               "deno": "./src/index.deno.ts",
-               "bun": "./src/index.bun.ts",
-               "node": "./src/index.node.ts"
-            },
-            "deno": "./dist/index.deno.js",
-            "bun": "./dist/index.bun.js",
-            "node": "./dist/index.node.js"
-        }
+  "name": "@jcbhmr/exec",
+  "version": "1.0.0",
+  "description": "🐧 exec(3) for node:child_process, Deno.Command, and Bun.spawn",
+  "keywords": [
+    "exec",
+    "execve"
+  ],
+  "homepage": "https://docsjs.jcbhmr.com/@jcbhmr/exec",
+  "bugs": {
+    "url": "https://github.com/jcbhmr/exec.js/issues"
+  },
+  "license": "MIT",
+  "author": "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.com)",
+  "repository": "github:jcbhmr/exec.js",
+  "workspaces": [
+    "./packages/[!@]*",
+    "./packages/@*/*"
+  ],
+  "files": [
+    "dist/"
+  ],
+  "os": [
+    "netbsd",
+    "os390",
+    "darwin",
+    "sunos",
+    "freebsd",
+    "openbsd",
+    "linux",
+    "android",
+    "os400",
+    "ios",
+    "openharmony"
+  ],
+  "type": "module",
+  "types": "./dist/node.d.ts",
+  "exports": {
+    ".": {
+      "deno": {
+        "development:@jcbhmr/exec": "./src/index.deno.ts",
+        "default": "./dist/index.deno.js"
+      },
+      "bun": {
+        "development:@jcbhmr/exec": "./src/index.bun.ts",
+        "default": "./dist/index.bun.js"
+      },
+      "node": {
+        "development:@jcbhmr/exec": "./src/index.node.ts",
+        "default": "./dist/index.node.js"
+      }
     },
-    "exports": {
-        ".": "./dist/index.js"
+    "./node": {
+      "deno": null,
+      "bun": null,
+      "node": {
+        "development:@jcbhmr/exec": "./src/node.ts",
+        "default": "./dist/node.js"
+      }
     },
-    "dependencies": {
-
+    "./deno": {
+      "deno": {
+        "development:@jcbhmr/exec": "./src/deno.ts",
+        "default": "./dist/deno.js"
+      }
     },
-    "devDependencies": {
-        "@types/bun": "^1.3.6",
-        "@types/deno": "^2.5.0",
-        "@types/node": "^25.0.9",
-        "bun": "^1.3.6",
-        "deno": "^2.6.5",
-        "oxfmt": "^0.26.0",
-        "oxlint": "^1.41.0",
-        "tsdown": "^0.20.0-beta.3",
-        "typescript": "^5.9.3"
-    },
-    "scripts": {
-        "prepare": "npm run build",
-        "build": "tsdown",
-        "format": "oxfmt",
-        "lint": "oxlint",
-        "check": "tsc",
-        "test": "node --test"
+    "./bun": {
+      "bun": {
+        "development:@jcbhmr/exec": "./src/bun.ts",
+        "default": "./dist/bun.js"
+      }
     }
+  },
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsdown",
+    "format": "oxfmt",
+    "lint": "oxlint --fix",
+    "check": "tsc",
+    "test": "run-p --aggregate-output --continue-on-error \"test:*\"",
+    "test:node": "node --test ./test/node.test.ts",
+    "test:deno": "deno test --no-check --allow-all ./test/deno.test.ts",
+    "test:bun": "bun test ./test/bun.test.ts"
+  },
+  "dependencies": {
+    "which": "^6.0.0"
+  },
+  "devDependencies": {
+    "@tsconfig/bases": "^1.0.17",
+    "@types/bun": "^1.3.6",
+    "@types/deno": "^2.5.0",
+    "@types/node": "^25.0.9",
+    "@types/which": "^3.0.4",
+    "bun": "^1.3.6",
+    "deno": "^2.6.5",
+    "execa": "^9.6.1",
+    "npm-run-all2": "^8.0.4",
+    "oxfmt": "^0.26.0",
+    "oxlint": "^1.41.0",
+    "publint": "^0.3.17",
+    "tsdown": "^0.20.0-beta.3",
+    "typescript": "^5.9.3"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": "^11"
+    },
+    "runtime": {
+      "name": "node",
+      "version": "^24"
+    }
+  },
+  "engines": {
+    "bun": ">=1",
+    "deno": ">=2",
+    "node": ">=25 || ^24 || ^22 || ^20"
+  }
 }
