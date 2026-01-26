@@ -82,4 +82,9 @@ bun.exec(["node", "--version"]);
 
 You must use WSL on Windows to develop and test this package.
 
-TODO: Implement fd rearrangement according to the stdio options. Right now it just inherits.
+TODOs
+
+- Implement fd rearrangement according to the stdio options. Right now it just inherits.
+- When Deno adds `process.execve()` support, use that instead of FFI. https://github.com/denoland/deno/issues/29017
+- If Deno exposes `Deno.Command`'s private fields as properties, refactor to `CommandExt.prototype.exec.call()` instead of our own wrapper.
+- When Bun adds `process.execve()` support, use that instead of FFI.
