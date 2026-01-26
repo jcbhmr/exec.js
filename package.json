@@ -6,7 +6,7 @@
     "exec",
     "execve"
   ],
-  "homepage": "https://docsjs.jcbhmr.com/@jcbhmr/exec",
+  "homepage": "https://github.com/jcbhmr/exec.js#readme",
   "bugs": {
     "url": "https://github.com/jcbhmr/exec.js/issues"
   },
