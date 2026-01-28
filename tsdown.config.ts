@@ -10,7 +10,6 @@ export default defineConfig({
   external: [/^#/, "bun", /^bun:/],
   fixedExtension: false,
   dts: true,
-  publint: true,
   inputOptions: {
     resolve: {
       conditionNames: ["development:@jcbhmr/exec"],
