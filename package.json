@@ -66,8 +66,7 @@
     "format": "oxfmt",
     "lint": "oxlint --fix",
     "check": "tsc",
-    "test": "node --conditions development:@jcbhmr/exec --test",
-    "prepublishOnly": "test -n \"$(git status --porcelain)\""
+    "test": "node --conditions development:@jcbhmr/exec --test"
   },
   "dependencies": {
     "which": "^6.0.0"
