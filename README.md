@@ -51,7 +51,7 @@ exec("node", ["--version"]);
 ![Deno](https://img.shields.io/badge/Deno-222222?style=for-the-badge&logo=Deno&logoColor=70FFAF)
 ![Bun](https://img.shields.io/badge/Bun-000000?style=for-the-badge&logo=Bun&logoColor=FFFFFF)
 
-You must use WSL on Windows to develop and test this package.
+If you're on Windows you **must** use WSL to develop this package.
 
 TODOs
 
