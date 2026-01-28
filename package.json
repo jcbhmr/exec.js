@@ -1,7 +1,7 @@
 {
   "name": "@jcbhmr/exec",
   "version": "1.0.0",
-  "description": "🐧 exec(3) for node:child_process, Deno.Command, and Bun.spawn",
+  "description": "🐧 Ergonomic exec(3) for JavaScript",
   "keywords": [
     "exec",
     "execve"
@@ -12,7 +12,10 @@
   },
   "license": "MIT",
   "author": "Jacob Hummer <jcbhmr@outlook.com> (https://jcbhmr.com)",
-  "repository": "github:jcbhmr/exec.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcbhmr/exec.js.git"
+  },
   "workspaces": [
     "./packages/[!@]*",
     "./packages/@*/*"
@@ -35,40 +38,26 @@
   ],
   "type": "module",
   "types": "./dist/node.d.ts",
+  "imports": {
+    "#process-execve": {
+      "deno": {
+        "development:@jcbhmr/exec": "./src/process-execve.deno.ts",
+        "default": "./dist/process-execve.deno.js"
+      },
+      "bun": {
+        "development:@jcbhmr/exec": "./src/process-execve.bun.ts",
+        "default": "./dist/process-execve.bun.js"
+      },
+      "node": {
+        "development:@jcbhmr/exec": "./src/process-execve.node.ts",
+        "default": "./dist/process-execve.node.js"
+      }
+    }
+  },
   "exports": {
     ".": {
-      "deno": {
-        "development:@jcbhmr/exec": "./src/index.deno.ts",
-        "default": "./dist/index.deno.js"
-      },
-      "bun": {
-        "development:@jcbhmr/exec": "./src/index.bun.ts",
-        "default": "./dist/index.bun.js"
-      },
-      "node": {
-        "development:@jcbhmr/exec": "./src/index.node.ts",
-        "default": "./dist/index.node.js"
-      }
-    },
-    "./node": {
-      "deno": null,
-      "bun": null,
-      "node": {
-        "development:@jcbhmr/exec": "./src/node.ts",
-        "default": "./dist/node.js"
-      }
-    },
-    "./deno": {
-      "deno": {
-        "development:@jcbhmr/exec": "./src/deno.ts",
-        "default": "./dist/deno.js"
-      }
-    },
-    "./bun": {
-      "bun": {
-        "development:@jcbhmr/exec": "./src/bun.ts",
-        "default": "./dist/bun.js"
-      }
+      "development:@jcbhmr/exec": "./src/index.ts",
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
@@ -77,13 +66,7 @@
     "format": "oxfmt",
     "lint": "oxlint --fix",
     "check": "tsc",
-    "test": "run-p --aggregate-output --continue-on-error \"test:*\"",
-    "test:node": "node --test ./test/node.test.ts",
-    "test:deno": "deno test --no-check --allow-all ./test/deno.test.ts",
-    "test:bun": "bun test ./test/bun.test.ts"
-  },
-  "dependencies": {
-    "which": "^6.0.0"
+    "test": "node --conditions development:@jcbhmr/exec --test"
   },
   "devDependencies": {
     "@tsconfig/bases": "^1.0.17",
@@ -94,7 +77,6 @@
     "bun": "^1.3.6",
     "deno": "^2.6.5",
     "execa": "^9.6.1",
-    "npm-run-all2": "^8.0.4",
     "oxfmt": "^0.26.0",
     "oxlint": "^1.41.0",
     "publint": "^0.3.17",
@@ -115,5 +97,8 @@
     "bun": ">=1",
     "deno": ">=2",
     "node": ">=25 || ^24 || ^22 || ^20"
+  },
+  "dependencies": {
+    "which": "^6.0.0"
   }
 }

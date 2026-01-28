@@ -1,6 +1,6 @@
-# `exec(3)` for Node.js
+# `exec(3)` for JavaScript
 
-🐧 `exec(3)` for `node:child_process`, `Deno.Command`, and `Bun.spawn`
+🐧 Ergonomic `exec(3)` for JavaScript
 
 <table align=center><td>
 
@@ -43,35 +43,6 @@ import exec from "@jcbhmr/exec";
 exec("node", ["--version"]);
 ```
 
-<details><summary><code>Deno.Command</code> example</summary>
-
-```ts
-// Unix-like operating systems ONLY.
-import * as deno from "@jcbhmr/exec/deno";
-
-// Deno.Command uses this.#command and this.#options internally 😥
-// so we can't extend it easily without using our own constructor. 🤷
-const command = new deno.Command("node", {
-  args: ["--version"],
-});
-command.exec();
-```
-
-</details>
-
-<details><summary><code>Bun.spawn</code> example</summary>
-
-```ts
-// Unix-like operating systems ONLY.
-import * as bun from "@jcbhmr/exec/bun";
-
-// Bun.spawn has a slightly different signature compared to
-// node:child_process spawn.
-bun.exec(["node", "--version"]);
-```
-
-</details>
-
 ## Development
 
 ![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=macOS&logoColor=FFFFFF)
@@ -86,5 +57,4 @@ TODOs
 
 - Implement fd rearrangement according to the stdio options. Right now it just inherits.
 - When Deno adds `process.execve()` support, use that instead of FFI. https://github.com/denoland/deno/issues/29017
-- If Deno exposes `Deno.Command`'s private fields as properties, refactor to `CommandExt.prototype.exec.call()` instead of our own wrapper.
 - When Bun adds `process.execve()` support, use that instead of FFI.
