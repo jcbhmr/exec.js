@@ -43,7 +43,11 @@ function stringsToCStringBlock(strings: string[]): Deno.PointerObject {
   return bufferPtr;
 }
 
-export default function processExecve(file: string, argv: string[] = [], env: NodeJS.ProcessEnv = {}): never {
+export default function processExecve(
+  file: string,
+  argv: string[] = [],
+  env: NodeJS.ProcessEnv = {},
+): never {
   const libc = getLibc();
   const envv = Object.entries(env).map(([key, value]) => `${key}=${value}`);
   const fileBuffer = new TextEncoder().encode(file + "\0");
