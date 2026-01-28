@@ -2,25 +2,24 @@ import * as ffi from "bun:ffi";
 import * as process from "node:process";
 import { once } from "./utils.ts";
 
-const getLibcName = once(() => {
-  switch (process.platform) {
-    case "darwin":
-      return "libc.dylib";
-    case "linux":
-      return "libc.so.6";
-    default:
-      throw new DOMException(`${process.platform} not supported`, "NotSupportedError");
-  }
-});
-
-const getLibc = once(() =>
-  ffi.dlopen(getLibcName(), {
+const getLibc = once(() => {
+  const libcName = (() => {
+    switch (process.platform) {
+      case "darwin":
+        return "libc.dylib";
+      case "linux":
+        return "libc.so.6";
+      default:
+        throw new DOMException(`${process.platform} not supported`, "NotSupportedError");
+    }
+  })();
+  return ffi.dlopen(libcName, {
     execve: {
       args: ["buffer", "ptr", "ptr"],
       returns: "i32",
     },
-  }),
-);
+  });
+});
 
 function stringsToCStringBlock(strings: string[]): ffi.Pointer {
   const datas = strings.map((str) => new TextEncoder().encode(str + "\0"));
@@ -55,5 +54,6 @@ export default function processExecve(
   const argvBuffer = stringsToCStringBlock(argv);
   const envvBuffer = stringsToCStringBlock(envv);
   libc.symbols.execve(fileBuffer, argvBuffer, envvBuffer);
-  throw new Error("execve failed");
+  console.error("execve failed");
+  process.abort();
 }

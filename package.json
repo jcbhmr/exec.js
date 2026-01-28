@@ -1,6 +1,6 @@
 {
   "name": "@jcbhmr/exec",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "🐧 Ergonomic exec(3) for JavaScript",
   "keywords": [
     "exec",
@@ -71,15 +71,11 @@
     "check": "tsc",
     "test": "node --conditions development:@jcbhmr/exec --test"
   },
-  "dependencies": {
-    "which": "^6.0.0"
-  },
   "devDependencies": {
     "@tsconfig/bases": "^1.0.17",
     "@types/bun": "^1.3.6",
     "@types/deno": "^2.5.0",
     "@types/node": "^25.0.9",
-    "@types/which": "^3.0.4",
     "bun": "^1.3.6",
     "deno": "^2.6.5",
     "execa": "^9.6.1",

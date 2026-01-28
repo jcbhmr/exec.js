@@ -15,6 +15,10 @@ exec("node", ["--version"], {
 
 </table>
 
+🐧 Works on Linux, macOS, BSDs, and more \
+🛑 **Does not work** on Windows \
+👶 Same arguments as `node:child_process` `spawn`
+
 ## Installation
 
 ![npm](https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=FFFFFF)

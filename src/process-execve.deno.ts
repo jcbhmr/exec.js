@@ -1,25 +1,26 @@
 import { once } from "./utils.ts";
+import * as process from "node:process";
 
 void Deno;
 
-const getLibcName = once(() => {
-  switch (Deno.build.os) {
-    case "darwin":
-      return "libc.dylib";
-    case "linux":
-      return "libc.so.6";
-    default:
-      throw new DOMException(`${Deno.build.os} not supported`, "NotSupportedError");
-  }
-});
-const getLibc = once(() =>
-  Deno.dlopen(getLibcName(), {
+const getLibc = once(() => {
+  const libcName = (() => {
+    switch (Deno.build.os) {
+      case "darwin":
+        return "libc.dylib";
+      case "linux":
+        return "libc.so.6";
+      default:
+        throw new DOMException(`${Deno.build.os} not supported`, "NotSupportedError");
+    }
+  })();
+  return Deno.dlopen(libcName, {
     execve: {
       parameters: ["buffer", "pointer", "pointer"],
       result: "i32",
     },
-  }),
-);
+  })
+});
 
 function stringsToCStringBlock(strings: string[]): Deno.PointerObject {
   const datas = strings.map((str) => new TextEncoder().encode(str + "\0"));
@@ -54,5 +55,6 @@ export default function processExecve(
   const argvBuffer = stringsToCStringBlock(argv);
   const envBuffer = stringsToCStringBlock(envv);
   libc.symbols.execve(fileBuffer, argvBuffer, envBuffer);
-  throw new Error("execve failed");
+  console.error("execve failed");
+  process.abort();
 }
