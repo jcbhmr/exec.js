@@ -19,7 +19,7 @@ const getLibc = once(() => {
       parameters: ["buffer", "pointer", "pointer"],
       result: "i32",
     },
-  })
+  });
 });
 
 function stringsToCStringBlock(strings: string[]): Deno.PointerObject {

@@ -3,7 +3,7 @@ import type { PathLike } from "node:fs";
 import * as url from "node:url";
 import { Buffer } from "node:buffer";
 import * as process from "node:process";
-import * as path from "node:path"
+import * as path from "node:path";
 import * as fs from "node:fs";
 
 type ExecOptionsStdio = "inherit" | undefined | null;
@@ -46,7 +46,7 @@ export interface ExecOptions {
 
 /**
  * Replaces the current process with a new one given by `command` and `args`.
- * 
+ *
  * This function does not return. On success, the current process is replaced and does not continue executing JavaScript code. On failure, it throws an error or aborts the process with a fatal error.
  *
  * @param command The command to run. Can be relative, absolute, or a bare name to be resolved via `PATH`.
@@ -96,7 +96,7 @@ function toPath(path: PathLike): string {
 function which(command: string): string {
   const { PATH = "" } = process.env;
   const dirs = PATH.split(path.delimiter);
-  const found = dirs.find(d => canAccessSync(path.join(d, command), fs.constants.X_OK));
+  const found = dirs.find((d) => canAccessSync(path.join(d, command), fs.constants.X_OK));
   if (found == null) {
     throw Object.assign(new Error(`${command} not found in ${PATH}`), { code: "ENOENT" });
   }
