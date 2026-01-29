@@ -16,10 +16,6 @@
     "type": "git",
     "url": "git+https://github.com/jcbhmr/exec.js.git"
   },
-  "workspaces": [
-    "./packages/[!@]*",
-    "./packages/@*/*"
-  ],
   "files": [
     "dist/"
   ],
